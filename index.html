@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>For Isra 💗</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Gloock&family=Caveat:wght@500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#FCEEF1; --ink:#3A2140; --soft:#8A6A8F; --petal:#E7849B; --gold:#C9973F;
+  --tile:#FFFFFF; --tile-open:#FFE3EA; --line:#EBC9D3;
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px);
+  padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    color-scheme:dark;
+    --bg:#24152A; --ink:#FBEFF2; --soft:#BBA0C0; --petal:#F4A7B9; --gold:#E8C27A;
+    --tile:#33203A; --tile-open:#4A2B48; --line:#4D3354;
+  }
+}
+:root[data-theme="dark"]{
+  color-scheme:dark;
+  --bg:#24152A; --ink:#FBEFF2; --soft:#BBA0C0; --petal:#F4A7B9; --gold:#E8C27A;
+  --tile:#33203A; --tile-open:#4A2B48; --line:#4D3354;
+}
+*,*::before,*::after{box-sizing:inherit}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{
+  margin:0; background:var(--bg); color:var(--ink);
+  font-family:"Caveat","Segoe Print","Bradley Hand",cursive;
+  -webkit-font-smoothing:antialiased;
+}
+main{max-width:640px; margin:0 auto; padding:56px 20px 72px}
+header{text-align:center; margin-bottom:40px}
+.to{font-size:1.6rem; color:var(--soft); margin:0}
+h1{
+  font-family:"Gloock",Georgia,serif; font-weight:400;
+  font-size:clamp(4.5rem,22vw,8.5rem); line-height:.9; margin:.1em 0 .15em;
+  color:var(--petal);
+}
+.since{font-size:1.7rem; margin:0}
+.since strong{font-family:"Gloock",Georgia,serif; font-weight:400; font-size:2.2rem; color:var(--gold)}
+.hint{font-size:1.35rem; color:var(--soft); margin:22px 0 0}
+
+.grid{
+  display:grid; grid-template-columns:repeat(5,1fr); gap:10px;
+}
+@media (min-width:520px){ .grid{grid-template-columns:repeat(8,1fr)} }
+.day{
+  aspect-ratio:1; border:1.5px solid var(--line); border-radius:50% 50% 50% 8px;
+  background:var(--tile); color:var(--ink);
+  font-family:"Gloock",Georgia,serif; font-size:1.15rem;
+  cursor:pointer; transition:transform .15s ease, background .2s ease;
+}
+.day:hover{transform:translateY(-2px)}
+.day:focus-visible{outline:3px solid var(--gold); outline-offset:2px}
+.day.opened{background:var(--tile-open); border-color:var(--petal); color:var(--petal)}
+.day.last{border-color:var(--gold); color:var(--gold)}
+
+.note{
+  margin:28px 0 0; min-height:150px; padding:24px 22px;
+  border:1.5px dashed var(--line); border-radius:18px; text-align:center;
+}
+.note .num{font-family:"Gloock",Georgia,serif; color:var(--gold); font-size:1.1rem; margin:0}
+.note .msg{font-size:1.9rem; line-height:1.25; margin:8px 0 0}
+.note.pop{animation:pop .35s ease}
+@keyframes pop{from{transform:scale(.96);opacity:.4}to{transform:none;opacity:1}}
+
+.progress{text-align:center; color:var(--soft); font-size:1.35rem; margin:18px 0 0}
+footer{text-align:center; margin-top:48px; font-size:1.6rem}
+footer .sig{font-size:2rem; color:var(--petal)}
+
+.heart{position:fixed; pointer-events:none; font-size:22px; animation:float 2.4s ease-out forwards; z-index:5}
+@keyframes float{to{transform:translateY(-60vh) rotate(25deg); opacity:0}}
+@media (prefers-reduced-motion:reduce){
+  .day,.note.pop{transition:none; animation:none}
+  .heart{display:none}
+}
+</style>
+</head>
+<body>
+<main>
+  <header>
+    <p class="to">a little something for</p>
+    <h1>Isra</h1>
+    <p class="since">together for <strong id="count">40</strong> days</p>
+    <p class="hint">40 things i love about you. tap them 💗</p>
+  </header>
+
+  <div class="grid" id="grid" aria-label="40 days of notes"></div>
+
+  <section class="note" id="note" aria-live="polite">
+    <p class="num" id="noteNum">pick a day</p>
+    <p class="msg" id="noteMsg">every one of these is something i love about you</p>
+  </section>
+  <p class="progress" id="progress">0 of 40 opened</p>
+
+  <footer>
+    <p>here’s to day 41, and every day after</p>
+    <p class="sig">— yours 💗</p>
+  </footer>
+</main>
+
+<script>
+// ✏️ Swap any of these for your own memories — one line per day.
+const notes = [
+  "your smile. it gets me every single time",
+  "your eyes. i look at them and forget what i was saying",
+  "remember when i look at ur eyes and i look away? yeah. still can’t handle it 🙈",
+  "your soul. you’re good all the way through",
+  "your laugh, especially when you can’t stop",
+  "the way you say my name",
+  "your voice when you’re sleepy",
+  "how kind you are to everyone",
+  "your heart. it’s so big",
+  "how you light up when you talk about stuff you love",
+  "your hugs. they fix everything",
+  "how easy you are to talk to",
+  "your face when you’re trying not to smile",
+  "how smart you are",
+  "that you’re funny without even trying",
+  "how you make me feel calm",
+  "your hands in mine",
+  "the little things you remember about me",
+  "how you look at me",
+  "your cute annoyed face",
+  "how strong you are, even on hard days",
+  "the way you care about people",
+  "your texts. they make my whole day",
+  "how you make boring days feel like something",
+  "your hair. just saying",
+  "how real you are with me",
+  "that you make me want to be better",
+  "your patience with me",
+  "how you’re beautiful and don’t even try",
+  "the way you get excited over small things",
+  "how safe i feel with you",
+  "your weird little habits. all of them",
+  "how you understand me",
+  "the way you make me laugh when i’m in a bad mood",
+  "that you’re honest, always",
+  "how you make everything feel lighter",
+  "your style. you always look good",
+  "how you show up for the people you love",
+  "that i get to be yours",
+  "everything. your smile, your eyes, your soul, all of you. 40 days in and i love you more than day one 💗"
+];
+
+const START = new Date(2026, 8, 20); // Sept 20, 2026
+const days = Math.max(1, Math.floor((Date.now() - START.getTime()) / 86400000));
+document.getElementById("count").textContent = days;
+
+let opened = new Set();
+try { opened = new Set(JSON.parse(localStorage.getItem("isra-opened") || "[]")); } catch(e) {}
+
+const grid = document.getElementById("grid");
+const note = document.getElementById("note");
+const noteNum = document.getElementById("noteNum");
+const noteMsg = document.getElementById("noteMsg");
+const progress = document.getElementById("progress");
+
+function updateProgress(){
+  progress.textContent = opened.size === 40
+    ? "all 40 opened. you’re stuck with me now 💗"
+    : `${opened.size} of 40 opened`;
+}
+
+function burst(x, y){
+  for (let i = 0; i < 14; i++){
+    const h = document.createElement("span");
+    h.className = "heart";
+    h.textContent = ["💗","💕","💖"][i % 3];
+    h.style.left = (x + (Math.random() - .5) * 160) + "px";
+    h.style.top = (y + (Math.random() - .5) * 40) + "px";
+    h.style.animationDelay = (Math.random() * .4) + "s";
+    document.body.appendChild(h);
+    setTimeout(() => h.remove(), 3000);
+  }
+}
+
+notes.forEach((text, i) => {
+  const n = i + 1;
+  const b = document.createElement("button");
+  b.className = "day" + (n === 40 ? " last" : "") + (opened.has(n) ? " opened" : "");
+  b.textContent = n === 40 ? "♥" : n;
+  b.setAttribute("aria-label", "Open day " + n);
+  b.addEventListener("click", (e) => {
+    noteNum.textContent = "day " + n;
+    noteMsg.textContent = text;
+    note.classList.remove("pop"); void note.offsetWidth; note.classList.add("pop");
+    opened.add(n); b.classList.add("opened");
+    try { localStorage.setItem("isra-opened", JSON.stringify([...opened])); } catch(err) {}
+    updateProgress();
+    if (n === 40){ const r = b.getBoundingClientRect(); burst(r.left + r.width/2, r.top); }
+  });
+  grid.appendChild(b);
+});
+updateProgress();
+</script>
+</body>
+</html>
