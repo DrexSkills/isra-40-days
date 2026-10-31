@@ -4,6 +4,14 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>For Isra 💗</title>
+<link rel="apple-touch-icon" href="icon-180.png">
+<link rel="icon" type="image/png" href="icon-192.png">
+<link rel="manifest" href="manifest.json">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Isra 💗">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="theme-color" content="#24152A">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Gloock&family=Caveat:wght@500;700&display=swap" rel="stylesheet">
@@ -80,6 +88,21 @@ footer .sig{font-size:2rem; color:var(--petal)}
   .day,.note.pop{transition:none; animation:none}
   .heart{display:none}
 }
+.install{
+  position:fixed; left:12px; right:12px; bottom:calc(12px + env(safe-area-inset-bottom,0px));
+  max-width:520px; margin:0 auto; z-index:10;
+  display:flex; gap:14px; align-items:center;
+  background:var(--tile); border:1.5px solid var(--petal); border-radius:20px;
+  padding:14px 16px; box-shadow:0 10px 30px rgba(58,33,64,.25);
+}
+.install[hidden]{display:none}
+.install img{width:52px; height:52px; border-radius:12px; flex:none}
+.install .t{font-size:1.55rem; margin:0; line-height:1.1}
+.install .s{font-size:1.2rem; color:var(--soft); margin:2px 0 0; line-height:1.15}
+.install .btns{display:flex; flex-direction:column; gap:6px; margin-left:auto}
+.install button{font-family:inherit; font-size:1.2rem; border-radius:12px; border:0; padding:4px 12px; cursor:pointer}
+.install .add{background:var(--petal); color:#fff}
+.install .x{background:transparent; color:var(--soft)}
 </style>
 </head>
 <body>
@@ -104,6 +127,18 @@ footer .sig{font-size:2rem; color:var(--petal)}
     <p class="sig">— yours 💗</p>
   </footer>
 </main>
+
+<div class="install" id="install" hidden role="dialog" aria-label="Add to home screen">
+  <img src="icon-180.png" alt="">
+  <div>
+    <p class="t">add me to ur home screen 💗</p>
+    <p class="s" id="installHow">tap share, then “add to home screen”</p>
+  </div>
+  <div class="btns">
+    <button class="add" id="installAdd" hidden>add</button>
+    <button class="x" id="installX">later</button>
+  </div>
+</div>
 
 <script>
 // ✏️ Swap any of these for your own memories — one line per day.
@@ -200,6 +235,36 @@ notes.forEach((text, i) => {
   grid.appendChild(b);
 });
 updateProgress();
+
+// add-to-home-screen banner
+(function(){
+  const box=document.getElementById("install");
+  const how=document.getElementById("installHow");
+  const addBtn=document.getElementById("installAdd");
+  const standalone = window.navigator.standalone || matchMedia("(display-mode: standalone)").matches;
+  let dismissed=false; try{ dismissed = localStorage.getItem("isra-install-later")==="1"; }catch(e){}
+  if (standalone || dismissed) return;
+  const ua=navigator.userAgent;
+  const ios=/iPhone|iPad|iPod/.test(ua) || (ua.includes("Mac") && "ontouchend" in document);
+  let deferred=null;
+  if (ios){
+    how.textContent="tap the share button, then “add to home screen”";
+    setTimeout(()=>box.hidden=false, 2500);
+  }
+  window.addEventListener("beforeinstallprompt", e=>{
+    e.preventDefault(); deferred=e;
+    how.textContent="so i’m always one tap away";
+    addBtn.hidden=false; box.hidden=false;
+  });
+  addBtn.addEventListener("click", async()=>{
+    if(!deferred) return;
+    deferred.prompt(); await deferred.userChoice; deferred=null; box.hidden=true;
+  });
+  document.getElementById("installX").addEventListener("click", ()=>{
+    box.hidden=true;
+    try{ localStorage.setItem("isra-install-later","1"); }catch(e){}
+  });
+})();
 </script>
 </body>
 </html>
