@@ -10,8 +10,8 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="Isra 💗">
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="theme-color" content="#24152A">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="theme-color" content="#FCEEF1">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Gloock&family=Caveat:wght@500;700&display=swap" rel="stylesheet">
@@ -19,21 +19,10 @@
 :root{
   --bg:#FCEEF1; --ink:#3A2140; --soft:#8A6A8F; --petal:#E7849B; --gold:#C9973F;
   --tile:#FFFFFF; --tile-open:#FFE3EA; --line:#EBC9D3;
+  color-scheme:light;
   box-sizing:border-box;
   padding-top:env(safe-area-inset-top,0px);
   padding-bottom:env(safe-area-inset-bottom,0px);
-}
-@media (prefers-color-scheme: dark){
-  :root:not([data-theme="light"]){
-    color-scheme:dark;
-    --bg:#24152A; --ink:#FBEFF2; --soft:#BBA0C0; --petal:#F4A7B9; --gold:#E8C27A;
-    --tile:#33203A; --tile-open:#4A2B48; --line:#4D3354;
-  }
-}
-:root[data-theme="dark"]{
-  color-scheme:dark;
-  --bg:#24152A; --ink:#FBEFF2; --soft:#BBA0C0; --petal:#F4A7B9; --gold:#E8C27A;
-  --tile:#33203A; --tile-open:#4A2B48; --line:#4D3354;
 }
 *,*::before,*::after{box-sizing:inherit}
 html{scroll-padding-top:env(safe-area-inset-top,0px)}
